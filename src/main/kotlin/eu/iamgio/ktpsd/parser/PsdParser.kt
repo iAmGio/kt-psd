@@ -9,7 +9,7 @@ import java.io.InputStream
  * This class parses a .PSD file into accessible information
  * @author Giorgio Garofalo
  */
-public class PsdParser(val bytes: ByteArray) {
+public class PsdParser(private val bytes: ByteArray) {
 
     constructor(inputStream: InputStream) : this(inputStream.readBytes())
     constructor(file: File) : this(file.readBytes())
@@ -20,7 +20,8 @@ public class PsdParser(val bytes: ByteArray) {
      * @return Photoshop document
      */
     public fun parse(): PsdDocument {
-        val header = PsdHeader.parse(this)
+        val reader = PsdReader(bytes)
+        val header = PsdHeader.parse(reader)
         return PsdDocument(header)
     }
 }

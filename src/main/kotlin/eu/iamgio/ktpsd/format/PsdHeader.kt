@@ -1,6 +1,8 @@
 package eu.iamgio.ktpsd.format
 
-import eu.iamgio.ktpsd.parser.PsdParser
+import eu.iamgio.ktpsd.parser.PsdReadable
+import eu.iamgio.ktpsd.parser.PsdReader
+import eu.iamgio.ktpsd.parser.PsdSection
 
 /**
  * Header of document. Contains several information about it
@@ -34,11 +36,10 @@ data class PsdHeader(
         }
     }
 
-    companion object : PsdReader() {
+    companion object : PsdReadable {
 
-        override fun parse(parser: PsdParser): PsdHeader {
-            super.parse(parser)
-            return PsdHeader(
+        override fun parse(reader: PsdReader) = with(reader) {
+            PsdHeader(
                     signature = readNextString(4),
                     version = readNextByte(2),
                     reserved = readNextByte(6),

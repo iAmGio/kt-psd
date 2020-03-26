@@ -1,22 +1,12 @@
-package eu.iamgio.ktpsd.format
-
-import eu.iamgio.ktpsd.parser.PsdParser
+package eu.iamgio.ktpsd.parser
 
 /**
  * Reader which reads the document byte by byte
  * @author Giorgio Garofalo
  */
-abstract class PsdReader {
-
-    lateinit var bytes: ByteArray
-        private set
+class PsdReader(private val bytes: ByteArray) {
 
     var byteIndex = 0
-
-    open fun parse(parser: PsdParser): PsdSection {
-        bytes = parser.bytes
-        return object : PsdSection {}
-    }
 
     private fun readNext(length: Byte): ByteArray {
         val currentBytes = bytes.slice(IntRange(byteIndex, byteIndex + length - 1)).toByteArray()
