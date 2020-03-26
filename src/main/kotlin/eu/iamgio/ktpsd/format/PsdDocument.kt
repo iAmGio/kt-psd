@@ -5,5 +5,6 @@ package eu.iamgio.ktpsd.format
  * @author Giorgio Garofalo
  */
 public data class PsdDocument(
-        val header: PsdHeader
+        val header: PsdHeader,
+        val colorModeData: PsdColorModeData
 )
