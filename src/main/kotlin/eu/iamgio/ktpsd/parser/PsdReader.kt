@@ -6,7 +6,7 @@ package eu.iamgio.ktpsd.parser
  */
 class PsdReader(private val bytes: ByteArray) {
 
-    var byteIndex = 0
+    private var byteIndex = 0
 
     private fun readNext(length: Int): ByteArray {
         val currentBytes = bytes.slice(IntRange(byteIndex, byteIndex + length - 1)).toByteArray()
@@ -19,7 +19,7 @@ class PsdReader(private val bytes: ByteArray) {
     private fun readNextNumber(length: Int): Number {
         val bytes = readNext(length)
         var value = 0
-        bytes.filter {it > 0}.forEach {
+        bytes.filter { it > 0 }.forEach {
             value = value * 10 + it
         }
         return value
@@ -29,8 +29,3 @@ class PsdReader(private val bytes: ByteArray) {
     fun readNextByte(length: Int) = readNextNumber(length).toByte()
     fun readNextShort(length: Int) = readNextNumber(length).toShort()
 }
-
-/**
- * Interface implemented by all section types
- */
-interface PsdSection

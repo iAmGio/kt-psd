@@ -8,7 +8,7 @@ import eu.iamgio.ktpsd.parser.PsdParser
  */
 
 fun main() {
-    val testInputStream = object {}.javaClass.getResourceAsStream("/test.psd")
+    val testInputStream = object {}.javaClass.getResourceAsStream("/test.psd")!!
     val document: PsdDocument = PsdParser(testInputStream).parse()
     println(document)
 }

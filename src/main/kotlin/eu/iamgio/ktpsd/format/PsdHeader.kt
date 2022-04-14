@@ -1,11 +1,12 @@
 package eu.iamgio.ktpsd.format
 
-import eu.iamgio.ktpsd.parser.PsdReadable
 import eu.iamgio.ktpsd.parser.PsdReader
 import eu.iamgio.ktpsd.parser.PsdSection
+import eu.iamgio.ktpsd.parser.PsdSectionParser
 
 /**
- * Header of document. Contains several information about it
+ * Header of document.
+ *
  * @author Giorgio Garofalo
  */
 data class PsdHeader(
@@ -59,23 +60,20 @@ data class PsdHeader(
             throw IllegalStateException("Reserved value ($reserved) is not 0.")
         }
     }
+}
 
-    companion object : PsdReadable {
+object PsdHeaderParser : PsdSectionParser<PsdHeader> {
 
-        override fun parse(reader: PsdReader) = with(reader) {
-            PsdHeader(
-                    signature = readNextString(4),
-                    version = readNextByte(2),
-                    reserved = readNextByte(6),
-                    channels = readNextShort(2),
-                    height = readNextInt(4),
-                    width = readNextInt(4),
-                    depth = readNextByte(2),
-                    colorMode = readNextByte(2)
-            ).let {
-                it.verify()
-                it
-            }
-        }
+    override fun parse(reader: PsdReader) = with(reader) {
+        PsdHeader(
+                signature = readNextString(4),
+                version = readNextByte(2),
+                reserved = readNextByte(6),
+                channels = readNextShort(2),
+                height = readNextInt(4),
+                width = readNextInt(4),
+                depth = readNextByte(2),
+                colorMode = readNextByte(2)
+        ).also { it.verify() }
     }
 }
