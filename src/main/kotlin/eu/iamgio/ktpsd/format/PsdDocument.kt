@@ -7,5 +7,6 @@ package eu.iamgio.ktpsd.format
  */
 data class PsdDocument(
         val header: PsdHeader,
-        val colorModeData: PsdColorModeData
+        val colorModeData: PsdColorModeData,
+        val imageResources: PsdImageResources
 )

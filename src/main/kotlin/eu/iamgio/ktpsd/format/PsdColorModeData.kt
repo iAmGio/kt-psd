@@ -8,7 +8,7 @@ import eu.iamgio.ktpsd.parser.PsdSectionParser
  * @author Giorgio Garofalo
  */
 data class PsdColorModeData(
-        val colorData: String
+        val colorData: String // TODO
 ) : PsdSection
 
 object PsdColorModeDataParser : PsdSectionParser<PsdColorModeData> {

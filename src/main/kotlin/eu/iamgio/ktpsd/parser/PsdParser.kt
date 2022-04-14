@@ -3,6 +3,7 @@ package eu.iamgio.ktpsd.parser
 import eu.iamgio.ktpsd.format.PsdColorModeDataParser
 import eu.iamgio.ktpsd.format.PsdDocument
 import eu.iamgio.ktpsd.format.PsdHeaderParser
+import eu.iamgio.ktpsd.format.PsdImageResourcesParser
 import java.io.File
 import java.io.InputStream
 
@@ -25,6 +26,7 @@ class PsdParser(private val bytes: ByteArray) {
         val reader = PsdReader(bytes)
         val header = PsdHeaderParser.parse(reader)
         val colorModeData = PsdColorModeDataParser.parse(reader)
-        return PsdDocument(header, colorModeData)
+        val imageResources = PsdImageResourcesParser.parse(reader)
+        return PsdDocument(header, colorModeData, imageResources)
     }
 }
